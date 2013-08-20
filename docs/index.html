@@ -9,8 +9,18 @@
 </head>
 <body>
 
+<div class="app-wrapper">
+</div>
+
 <script src="static/js/main.js"></script>
 <script>
+require(['appname/app'], function(app){
+
+    app.init({
+        wrapper: '.app-wrapper'
+    });
+
+});
 </script>
 
 </body>

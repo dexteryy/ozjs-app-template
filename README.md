@@ -23,7 +23,7 @@ _(Coming soon)_
 ### The first build
 
 1. `cp config.js.tmpl config.js`
-2. `grunt`
+2. `grunt publish`
 
 ### Development
 
@@ -32,7 +32,7 @@ _(Coming soon)_
 
 ### Before committing
 
-1. `grunt` or `grunt publish` (version change)
+1. `grunt` (small commits) or `grunt publish` (version change)
 
 ### Testing
 
