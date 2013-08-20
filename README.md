@@ -32,7 +32,8 @@ _(Coming soon)_
 
 ### Before committing
 
-1. `grunt` (small commits) or `grunt publish` (version change)
+* `grunt` - small commits 
+* `grunt publish` - version change (rebuild the distribution files)
 
 ### Testing
 
