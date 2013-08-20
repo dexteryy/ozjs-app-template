@@ -1,0 +1,16 @@
+{
+  "name": "appname",
+  "version": "0.0.0",
+  "dependencies": {},
+  "devDependencies": {
+      "ozjs": "http://code.dapps.douban.com/mirror/OzJS.git#~2.5.3",
+      "mo": "http://code.dapps.douban.com/mirror/mo.git#~1.5.6",
+      "dollar": "http://code.dapps.douban.com/mirror/DollarJS.git#~1.2.4",
+      "nerv": "http://code.dapps.douban.com/mirror/NervJS.git#~0.3.0",
+      "eventmaster": "http://code.dapps.douban.com/mirror/EventMaster.git#~2.1.0",
+      "soviet": "http://code.dapps.douban.com/mirror/SovietJS.git#~1.0.0",
+      "moui": "http://code.dapps.douban.com/mirror/moui.git#~2.0.2",
+      "arkui": "http://code.dapps.douban.com/mirror/arkui.git#7ef6bd642e6eef9c718a8be882fdac4a26ae3f89"
+  },
+  "ignore": []
+}

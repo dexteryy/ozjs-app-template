@@ -1,0 +1,24 @@
+
+@import 'moui/actionview/dialog';
+@import 'moui/modalview/dialog';
+@import 'moui/growl/default';
+
+.my-actionview {
+  @extend .moui-actionview;
+}
+
+.my-modalview {
+  @extend .moui-modalview;
+}
+
+.my-growl {
+  @extend .moui-growl;
+  left:25%;
+  right:25%;
+  padding:20px;
+
+  &.active {
+    opacity:.8;
+  }
+
+}
