@@ -19,3 +19,4 @@ origin/
 target/
 .dist/
 public/
+dist/**/example*
