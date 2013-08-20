@@ -13,19 +13,19 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         meta: {
             publicDir: config.publicDir,
-            staticDir: config.staticDir,
+            staticDir: config.staticDir + '/<%= pkg.name %>',
             jsTplDir: "js/<%= pkg.name %>/tpl",
             jsComponentDir: "js/component",
-            targetDir: 'target',
-            distDir: '.dist',
-            releaseDir: 'dist',
+            targetDir: 'target/<%= pkg.name %>',
+            distDir: '.dist/<%= pkg.name %>',
+            releaseDir: 'dist/<%= pkg.name %>',
             originDir: 'origin'
         },
 
         clean: {
             jsTpl: ["<%= meta.jsTplDir %>/"],
             jsComponent: ["<%= meta.jsComponentDir %>/"],
-            cssComponent: ["css/*/**", "!css/appname/**"],
+            cssComponent: ["css/*/**", "!css/<%= pkg.name %>/**"],
             origin_arkui: ["<%= meta.originDir %>/arkui/css/"],
             pub_static: ["<%= meta.staticDir %>/"],
             pub_html: ["<%= meta.publicDir %>/**/*.html"],
@@ -158,6 +158,23 @@ module.exports = function(grunt) {
             }
         },
 
+        includereplace: {
+            main: {
+                options: {
+                    globals: {
+                        appname: '<%= pkg.name %>'
+                    }
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'docs/',
+                    src: ['**/*.html'],
+                    dest: '<%= meta.publicDir %>/',
+                    ext: '.orig.html'
+                }]
+            }
+        },
+
         imagemin: {
             main: {
                 options: {
@@ -180,9 +197,10 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: 'docs/',
-                    src: ['**/*.html'],
-                    dest: '<%= meta.publicDir %>/'
+                    cwd: '<%= meta.publicDir %>/',
+                    src: ['**/*.orig.html'],
+                    dest: '<%= meta.publicDir %>/',
+                    ext: '.html'
                 }]
             }
         },
@@ -381,6 +399,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-complexity');
+    grunt.loadNpmTasks('grunt-include-replace');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-furnace');
     grunt.loadNpmTasks('grunt-ozjs');
@@ -398,6 +417,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dev:html', [
         'clean:pub_html',
+        'includereplace',
         'htmlmin'
     ]);
 

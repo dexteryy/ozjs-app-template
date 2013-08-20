@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <title>example</title>
 <meta name="viewport" content="width=device-width">
-<link href="static/css/main.css" rel="stylesheet">
-<link href="static/css/example.css" rel="stylesheet">
+<link href="static/@@appname/css/main.css" rel="stylesheet">
+<link href="static/@@appname/css/example.css" rel="stylesheet">
 </head>
 <body>
 
 <div class="app-wrapper">
 </div>
 
-<script src="static/js/main.js"></script>
+<script src="static/@@appname/js/main.js"></script>
 <script>
-require(['appname/app'], function(app){
+require(['@@appname/app'], function(app){
 
     app.init({
         wrapper: '.app-wrapper'
