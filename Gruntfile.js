@@ -26,8 +26,14 @@ module.exports = function(grunt) {
             jsTpl: ["<%= meta.jsTplDir %>/"],
             jsComponent: ["<%= meta.jsComponentDir %>/"],
             cssComponent: ["css/*/**", "!css/<%= pkg.name %>/**"],
+            origin: ["<%= meta.originDir %>/"],
             origin_arkui: ["<%= meta.originDir %>/arkui/css/"],
-            pub_static: ["<%= meta.staticDir %>/"],
+            pub_static: {
+                options: {
+                    force: true,
+                },
+                src: ["<%= meta.staticDir %>/"]
+            },
             pub_html: ["<%= meta.publicDir %>/**/*.html"],
             target_js: ["<%= meta.targetDir %>/js"],
             target_css: ["<%= meta.targetDir %>/css"],
@@ -273,6 +279,22 @@ module.exports = function(grunt) {
                     dest: '<%= meta.staticDir %>/'
                 }]
             },
+            asset_to_target: {
+                files: [{
+                    expand: true,
+                    cwd: 'pics/',
+                    src: ['**', '!**/*.{png,jpg}'],
+                    dest: '<%= meta.targetDir %>/pics/'
+                }]
+            },
+            asset_to_dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= meta.targetDir %>/pics/',
+                    src: ['**'],
+                    dest: '<%= meta.distDir %>/pics/'
+                }]
+            },
             dist_to_pub: {
                 files: [{
                     expand: true,
@@ -370,10 +392,10 @@ module.exports = function(grunt) {
                     'test'
                 ]
             },
-            img: {
-                files: ['pics/**/*.{png,jpg}'],
+            asset: {
+                files: ['pics/**'],
                 tasks: [
-                    'dev:img',
+                    'dev:asset',
                     'test'
                 ]
             },
@@ -421,9 +443,10 @@ module.exports = function(grunt) {
         'htmlmin'
     ]);
 
-    grunt.registerTask('dev:img', [
+    grunt.registerTask('dev:asset', [
         'clean:target_pics', 
         'imagemin', 
+        'copy:asset_to_target',
         'dev:css'
     ]);
 
@@ -436,7 +459,9 @@ module.exports = function(grunt) {
     grunt.registerTask('update', [
         'clean:jsComponent',
         'clean:cssComponent',
-        'dispatch'
+        'clean:origin',
+        'dispatch',
+        'build_components'
     ]);
 
     grunt.registerTask('build_components', [
@@ -447,18 +472,18 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dev', [
         'dev:tpl',
-        'dev:img',
+        'dev:asset',
         'dev:html'
     ]);
 
     grunt.registerTask('test', [
-        'clean:pub_static',
         'copy:target_to_pub'
     ]);
 
     grunt.registerTask('build', [
         'clean:dist',
         'concat',
+        'copy:asset_to_dist',
         'uglify', 
         'cssmin'
     ]);
