@@ -1,7 +1,7 @@
 
 require.config({
     baseUrl: 'js/component/',
-    distUrl: 'dist/js/component/',
+    distUrl: 'static/appname/js/component/',
     aliases: {
         'appname': '../appname/',
     }

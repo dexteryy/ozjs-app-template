@@ -13,7 +13,9 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         meta: {
             publicDir: config.publicDir,
-            staticDir: config.staticDir + '/<%= pkg.name %>',
+            jsStaticDir: config.jsStaticDir || (config.staticDir + '/<%= pkg.name %>/js'),
+            cssStaticDir: config.cssStaticDir || (config.staticDir + '/<%= pkg.name %>/css'),
+            assetStaticDir: config.assetStaticDir || (config.staticDir + '/<%= pkg.name %>/pics'),
             jsTplDir: "js/<%= pkg.name %>/tpl",
             jsComponentDir: "js/component",
             targetDir: 'target/<%= pkg.name %>',
@@ -32,7 +34,14 @@ module.exports = function(grunt) {
                 options: {
                     force: true,
                 },
-                src: ["<%= meta.staticDir %>/"]
+                src: [
+                    "<%= meta.jsStaticDir %>/*", 
+                    "<%= meta.cssStaticDir %>/*", 
+                    "<%= meta.assetStaticDir %>/*", 
+                    "!<%= meta.jsStaticDir %>/.**", 
+                    "!<%= meta.cssStaticDir %>/.**", 
+                    "!<%= meta.assetStaticDir %>/.**"
+                ]
             },
             pub_html: ["<%= meta.publicDir %>/**/*.html"],
             target_js: ["<%= meta.targetDir %>/js"],
@@ -274,9 +283,19 @@ module.exports = function(grunt) {
             target_to_pub: {
                 files: [{
                     expand: true,
-                    cwd: '<%= meta.targetDir %>/',
+                    cwd: '<%= meta.targetDir %>/js/',
                     src: ['**'],
-                    dest: '<%= meta.staticDir %>/'
+                    dest: '<%= meta.jsStaticDir %>/'
+                }, {
+                    expand: true,
+                    cwd: '<%= meta.targetDir %>/css/',
+                    src: ['**'],
+                    dest: '<%= meta.cssStaticDir %>/'
+                }, {
+                    expand: true,
+                    cwd: '<%= meta.targetDir %>/pics',
+                    src: ['**'],
+                    dest: '<%= meta.assetStaticDir %>/'
                 }]
             },
             asset_to_target: {
@@ -298,17 +317,37 @@ module.exports = function(grunt) {
             dist_to_pub: {
                 files: [{
                     expand: true,
-                    cwd: '<%= meta.distDir %>/',
+                    cwd: '<%= meta.distDir %>/js/',
                     src: ['**'],
-                    dest: '<%= meta.staticDir %>/'
+                    dest: '<%= meta.jsStaticDir %>/'
+                }, {
+                    expand: true,
+                    cwd: '<%= meta.distDir %>/css/',
+                    src: ['**'],
+                    dest: '<%= meta.cssStaticDir %>/'
+                }, {
+                    expand: true,
+                    cwd: '<%= meta.distDir %>/pics',
+                    src: ['**'],
+                    dest: '<%= meta.assetStaticDir %>/'
                 }]
             },
             release_to_pub: {
                 files: [{
                     expand: true,
-                    cwd: '<%= meta.releaseDir %>/',
+                    cwd: '<%= meta.releaseDir %>/js/',
                     src: ['**'],
-                    dest: '<%= meta.staticDir %>/'
+                    dest: '<%= meta.jsStaticDir %>/'
+                }, {
+                    expand: true,
+                    cwd: '<%= meta.releaseDir %>/css/',
+                    src: ['**'],
+                    dest: '<%= meta.cssStaticDir %>/'
+                }, {
+                    expand: true,
+                    cwd: '<%= meta.releaseDir %>/pics',
+                    src: ['**'],
+                    dest: '<%= meta.assetStaticDir %>/'
                 }]
             },
             restore: {
