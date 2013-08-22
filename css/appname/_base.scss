@@ -1,20 +1,15 @@
 
-@import "moui/base/default";
+@import "moui/base";
+@import 'moui/actionview/dialog';
+@import 'moui/modalview/dialog';
+@import 'moui/growl/default';
 
-@import "arkui/layout";
-@import "arkui/table";
-@import "arkui/form";
+%my-app {
 
-// https://github.com/MoOx/compass-recipes
-//@import "recipes/effect";
+  [draggable] {
+    @include user-select(none);
+    -khtml-user-drag: element;
+    -webkit-user-drag: element;
+  }
 
-//@include animate-bounce;
-//@include animate-flipInY;
-//@include animate-pulse;
-
-[draggable] {
-  @include user-select(none);
-  -khtml-user-drag: element;
-  -webkit-user-drag: element;
 }
-

@@ -77,7 +77,7 @@ module.exports = function(grunt) {
             },
             "moui": {
                 use: [{
-                    cwd: "css/moui",
+                    cwd: "scss/moui",
                     src: ["**"],
                     dest: "css/moui/"
                 }, {
